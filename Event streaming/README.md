@@ -216,14 +216,151 @@ Event `EndpointActivated` is published when endpoint completes activation.
 
 Event content:
 ```csharp
-
+    public string ContainerId { get; set; }
+    public string EndpointId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
 ```
 
 Usage scenarios:
 
 ```gherkin
-Scenario: endpoint in 
+Scenario: endpoint successfully activated 
 Given endpoint in channel or pool
  When endpoint completes activation
+ Then event is published
+```
+
+### Endpoint deactivated
+Event `EndpointDeactivated` is published when endpoint completes deactivation.
+
+Event content:
+```csharp
+    public string ContainerId { get; set; }
+    public string EndpointId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: endpoint dectivated 
+Given endpoint in channel or pool
+ When endpoint completes deactivation
+ Then event is published
+```
+
+### Endpoint activation failed
+Event `EndpointDeactivated` is published when endpoint activation failed.
+
+Event content:
+```csharp
+    public string ContainerId { get; set; }
+    public string EndpointId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+    public string ErrorMessage { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: endpoint activation failed
+Given endpoint in channel or pool
+ When endpoint fails to activate
+ Then event is published
+```
+
+### Avatar activated
+Event `AvatarActivated` is published when avatar completes activation.
+
+Event content:
+```csharp
+    public string ContainerId { get; set; }
+    public string AvatarId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: avatar successfully activated 
+Given avatar in channel
+ When avatar completes activation but is not connected to an endpoint yet
+ Then event is published
+```
+
+### Avatar deactivated
+Event `AvatarDeactivated` is published when avatar completes deactivation.
+
+Event content:
+```csharp
+    public string ContainerId { get; set; }
+    public string AvatarId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: avatar successfully deactivated 
+Given avatar in channel
+ When avatar completes deactivation
+ Then event is published
+```
+
+### Avatar activation failed
+Event `AvatarActivationFailed` is published when avatar activation fails.
+
+Event content:
+```csharp
+    public string ContainerId { get; set; }
+    public string AvatarId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+    public string ErrorMessage { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: avatar activation failed
+Given avatar in channel
+ When avatar fails to activate
+ Then event is published
+```
+
+### Avatar connected
+Event `AvatarConnected` is published when avatar establishes connection to an endpoint.
+
+Event content:
+```csharp
+    public string ContainerId { get; set; }
+    public string AvatarId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: avatar connects to an endpoint
+Given avatar in channel
+ When avatar establishes connection to an endpoint
+ Then event is published
+```
+
+### Avatar disconnected
+Event `AvatarDisconnected` is published when avatar loses connection to an endpoint.
+
+Event content:
+```csharp
+    public string ContainerId { get; set; }
+    public string AvatarId { get; set; }
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: avatar disconnects from an endpoint
+Given avatar in channel
+ When avatar loses connection to an endpoint, but is still activ
  Then event is published
 ```
