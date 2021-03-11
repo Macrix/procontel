@@ -193,6 +193,7 @@ Given receiver is an endpoint in pool
  Then event is published
 ```
 
+**Following 2 scenarios are NOT currently supported!!!**
 ```gherkin
 Scenario: message processed by standard endpoint in channel
 Given receiver is a standard endpoint in channel
