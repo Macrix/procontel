@@ -2,4 +2,4 @@
 
 ## Table of Contents
 
-1. [Event Streaming](Event%20Streaming/README.md)
+1. [Event Streaming](Event&#32;Streaming/README.md)
