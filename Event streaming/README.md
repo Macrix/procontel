@@ -36,7 +36,7 @@ public class EndpointIdentity
 }
 ```
 
-## Events definition
+## Traffic events definition
 
 Below you can find all available events.
 
@@ -169,14 +169,60 @@ Event `MessageProcessed` is published when endpoint finished processing message.
 
 Event content:
 ```csharp
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public string MessageId { get; set; }
+public Guid CorrelationId { get; set; }
+public EndpointIdentity Receiver { get; set; }
+public TimeSpan ProcessingDuration { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: message processed by endpoint in channel
+Given receiver is an endpoint in channel
+ When message is processed by endpoint 
+ Then event is published
+```
+
+```gherkin
+Scenario: message processed by endpoint in pool
+Given receiver is an endpoint in pool
+  And receiver has an active and connected avatar in channel
+ When message is processed by endpoint
+ Then event is published
+```
+
+```gherkin
+Scenario: message processed by standard endpoint in channel
+Given receiver is a standard endpoint in channel
+ When message is processed by endpoint 
+ Then event is published
+```
+
+```gherkin
+Scenario: message processed by standard endpoint in pool
+Given receiver is a standard endpoint in pool
+  And receiver has an active and connected avatar in channel
+ When message is processed by pool
+ Then event is published
+```
+
+## Infrastructure events definition
+
+### Endpoint activated
+Event `EndpointActivated` is published when endpoint completes activation.
+
+Event content:
+```csharp
 
 ```
 
 Usage scenarios:
 
 ```gherkin
-Scenario: 
-Given 
- When 
- Then 
+Scenario: endpoint in 
+Given endpoint in channel or pool
+ When endpoint completes activation
+ Then event is published
 ```
