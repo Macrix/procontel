@@ -291,3 +291,44 @@ Given endpoint in pool
  When avatar disconnected from endpoint in pool
  Then event is published
 ```
+
+### Warning reported
+
+Event `WarningReported` is published when endpoint reported warning.
+
+Event content:
+```csharp
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public EndpointIdentity Endpoint { get; set; }
+public int WarningId { get; set; }
+public string WarningMessage { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: endpoint reported warning
+Given endpoint in channel or pool
+ When endpoint reported warning
+ Then event is published
+```
+
+### Warning cleared
+
+Event `WarningCleared` is published when endpoint cleared warning.
+
+Event content:
+```csharp
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public EndpointIdentity Endpoint { get; set; }
+public int WarningId { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: endpoint cleared warning
+Given endpoint in channel or pool
+ When endpoint cleared warning
+ Then event is published
+```
