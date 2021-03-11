@@ -211,156 +211,83 @@ Given receiver is a standard endpoint in pool
 
 ## Infrastructure events definition
 
-### Endpoint activated
-Event `EndpointActivated` is published when endpoint completes activation.
+### Endpoint connected
+
+Event `EndpointConnected` is published when endpoint connected to channel.
 
 Event content:
 ```csharp
-    public string ContainerId { get; set; }
-    public string EndpointId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public EndpointIdentity Endpoint { get; set; }
+public string ConnectedContainerId { get; set; }
 ```
 
 Usage scenarios:
 
 ```gherkin
-Scenario: endpoint successfully activated 
-Given endpoint in channel or pool
- When endpoint completes activation
+Scenario: endpoint in channel successfully connected
+Given endpoint in channel
+ When endpoint completed activation
  Then event is published
 ```
 
-### Endpoint deactivated
-Event `EndpointDeactivated` is published when endpoint completes deactivation.
-
-Event content:
-```csharp
-    public string ContainerId { get; set; }
-    public string EndpointId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
-```
-
-Usage scenarios:
-
 ```gherkin
-Scenario: endpoint dectivated 
-Given endpoint in channel or pool
- When endpoint completes deactivation
+Scenario: endpoint in pool successfully connected
+Given endpoint in pool
+  And endpoint has an active and connected avatar in channel
+ When endpoint completed activation
  Then event is published
 ```
 
-### Endpoint activation failed
-Event `EndpointDeactivated` is published when endpoint activation failed.
-
-Event content:
-```csharp
-    public string ContainerId { get; set; }
-    public string EndpointId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
-    public string ErrorMessage { get; set; }
-```
-
-Usage scenarios:
-
 ```gherkin
-Scenario: endpoint activation failed
-Given endpoint in channel or pool
- When endpoint fails to activate
+Scenario: endpoint in pool not successfully connected
+Given endpoint in pool
+  And endpoint has active and not connected avatar in channel
+ When endpoint completed activation
+  And avatar connected with endpoint in pool
  Then event is published
 ```
 
-### Avatar activated
-Event `AvatarActivated` is published when avatar completes activation.
+```gherkin
+Scenario: endpoint in pool and no active or connected avatar
+Given endpoint in pool
+  And endpoint has no active or connected avatar in channel
+ When endpoint completed activation
+ Then event is NOT published
+```
+
+### Endpoint disconnected
+
+Event `EndpointDisconnected` is published when endpoint disconnected from channel.
 
 Event content:
 ```csharp
-    public string ContainerId { get; set; }
-    public string AvatarId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public EndpointIdentity Endpoint { get; set; }
+public string DisconnectedContainerId { get; set; }
 ```
 
 Usage scenarios:
 
 ```gherkin
-Scenario: avatar successfully activated 
-Given avatar in channel
- When avatar completes activation but is not connected to an endpoint yet
+Scenario: endpoint in channel disconnected
+Given endpoint in channel
+ When endpoint completed deactivation
  Then event is published
 ```
 
-### Avatar deactivated
-Event `AvatarDeactivated` is published when avatar completes deactivation.
-
-Event content:
-```csharp
-    public string ContainerId { get; set; }
-    public string AvatarId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
-```
-
-Usage scenarios:
-
 ```gherkin
-Scenario: avatar successfully deactivated 
-Given avatar in channel
- When avatar completes deactivation
+Scenario: endpoint in pool disconnected
+Given endpoint in pool
+  And endpoint has an active and connected avatar in channel
+ When endpoint completed deactivation
  Then event is published
 ```
 
-### Avatar activation failed
-Event `AvatarActivationFailed` is published when avatar activation fails.
-
-Event content:
-```csharp
-    public string ContainerId { get; set; }
-    public string AvatarId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
-    public string ErrorMessage { get; set; }
-```
-
-Usage scenarios:
-
 ```gherkin
-Scenario: avatar activation failed
-Given avatar in channel
- When avatar fails to activate
- Then event is published
-```
-
-### Avatar connected
-Event `AvatarConnected` is published when avatar establishes connection to an endpoint.
-
-Event content:
-```csharp
-    public string ContainerId { get; set; }
-    public string AvatarId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
-```
-
-Usage scenarios:
-
-```gherkin
-Scenario: avatar connects to an endpoint
-Given avatar in channel
- When avatar establishes connection to an endpoint
- Then event is published
-```
-
-### Avatar disconnected
-Event `AvatarDisconnected` is published when avatar loses connection to an endpoint.
-
-Event content:
-```csharp
-    public string ContainerId { get; set; }
-    public string AvatarId { get; set; }
-    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
-```
-
-Usage scenarios:
-
-```gherkin
-Scenario: avatar disconnects from an endpoint
-Given avatar in channel
- When avatar loses connection to an endpoint, but is still activ
+Scenario: endpoint in pool active and avatar disconnected
+Given endpoint in pool
+  And endpoint has active and connected avatar in channel
+ When avatar disconnected from endpoint in pool
  Then event is published
 ```
