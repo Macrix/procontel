@@ -211,6 +211,44 @@ Given receiver is a standard endpoint in pool
 
 ## Infrastructure events definition
 
+### Endpoint activated
+
+Event `EndpointActivated` is published when endpoint completed activation.
+
+Event content:
+```csharp
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public EndpointIdentity Endpoint { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: endpoint activated
+Given endpoint in channel or pool
+ When endpoint completed activation
+ Then event is published
+```
+
+### Endpoint deactivated
+
+Event `EndpointDeactivated` is published when endpoint completed deactivation.
+
+Event content:
+```csharp
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public EndpointIdentity Endpoint { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: endpoint deactivated
+Given endpoint in channel or pool
+ When endpoint completed deactivation
+ Then event is published
+```
+
 ### Endpoint connected
 
 Event `EndpointConnected` is published when endpoint connected to channel.
