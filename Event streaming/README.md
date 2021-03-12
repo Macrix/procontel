@@ -330,6 +330,43 @@ Given endpoint in pool
  Then event is published
 ```
 
+### Container activated
+
+Event `ContainerActivated` is published when pool or channel is activated.
+
+Event content:
+```csharp
+public string ContainerId { get; set; }
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: pool or channel is being activated
+Given inactive pool or channel
+ When container has been just activated
+ Then event is published
+```
+
+### Container deactivated
+
+Event `ContainerDeactivated` is published when pool or channel is deactivated.
+
+Event content:
+```csharp
+public string ContainerId { get; set; }
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: pool or channel is being deactivated
+Given active pool or channel
+ When container is not active anymore
+ Then event is published
+```
 ### Warning reported
 
 Event `WarningReported` is published when endpoint reported warning.
