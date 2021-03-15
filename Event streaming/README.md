@@ -26,6 +26,7 @@ Documentation contains information about available events and defines scenarios 
    * [Container deactivated](#container-deactivated)
    * [Warning reported](#warning-reported)
    * [Warning cleared](#warning-cleared)
+   * [Cyclic report](#cyclic-report)
 
 
 <div id='common-definitions'/>
@@ -463,4 +464,28 @@ Scenario: endpoint cleared all warnings
 Given endpoint in channel or pool
  When endpoint cleared all warnings
  Then event is published for each cleared warning
+```
+
+<div id='cyclic-report'/>
+
+### Cyclic report
+
+Event `CyclicReport` is published cyclic every 2 minutes.
+
+Event content:
+```csharp
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public string ContainerId { get; set; }
+public long MemoryUsage { get; set; }
+public int CpuLoad { get; set; }
+public int ThreadsCount { get; set; }
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: channel and pool sent cyclic report
+Given active channel or pool
+ When specified period of time passed 
+ Then event is published
 ```
