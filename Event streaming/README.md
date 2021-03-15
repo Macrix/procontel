@@ -11,7 +11,7 @@ Documentation contains information about available events and defines scenarios 
 
 ## Table of Contents
 
-{:toc}
+[[_TOC_]]
 
 
 ## Common definitions
