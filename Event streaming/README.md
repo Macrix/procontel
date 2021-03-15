@@ -7,7 +7,7 @@ What is ProconTEL streaming.
 
 ## What you can find here?
 
-Documentation contains information about available events and defines scenarios in which events are published. Description of each event contains definition of event data structure and usage scenario written in BDD (behavioral driven design).
+Documentation contains information about available events and defines scenarios in which events are published. Description of each event contains definition of event data structure and usage scenario written in BDD approach.
 
 ## Table of Contents
 
