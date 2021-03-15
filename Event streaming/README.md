@@ -9,6 +9,11 @@ What is ProconTEL streaming.
 
 Documentation contains information about available events and defines scenarios in which events are published. Description of each event contains definition of event data structure and usage scenario written in BDD (behavioral driven design).
 
+## Table of Contents
+
+[[_TOC_]]
+
+
 ## Common definitions
 
 List of common definitions which are used when defining events.
@@ -406,4 +411,11 @@ Scenario: endpoint cleared warning
 Given endpoint in channel or pool
  When endpoint cleared warning
  Then event is published
+```
+
+```gherkin
+Scenario: endpoint cleared all warnings
+Given endpoint in channel or pool
+ When endpoint cleared all warnings
+ Then event is published for each cleared warning
 ```
