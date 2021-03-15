@@ -11,8 +11,24 @@ Documentation contains information about available events and defines scenarios 
 
 ## Table of Contents
 
-{:toc}
+1. [Common definitions](#common-definitions)
+2. [Traffic events definition](#traffic-events-definition)
+   * [Message received](#message-received)
+   * [Message enqueued](#message-enqueued)
+   * [Message delivered](#message-delivered)
+   * [Message processed](#message-processed)
+3. [Infrastructure events definition](#infrastructure-events-definition)
+   * [Endpoint activated](#endpoint-activated)
+   * [Endpoint deactivated](#endpoint-deactivated)
+   * [Endpoint connected](#endpoint-connected)
+   * [Endpoint disconnected](#endpoint-disconnected)
+   * [Container activated](#container-activated)
+   * [Container deactivated](#container-deactivated)
+   * [Warning reported](#warning-reported)
+   * [Warning cleared](#warning-cleared)
 
+
+<div id='common-definitions'/>
 
 ## Common definitions
 
@@ -41,9 +57,13 @@ public class EndpointIdentity
 }
 ```
 
+<div id='traffic-events-definition'/>
+
 ## Traffic events definition
 
 Below you can find all available events.
+
+<div id='message-received'/>
 
 ### Message received
 Event `MessageReceived` is published when message is received by channel.
@@ -82,6 +102,8 @@ Given sender is in pool
  When message is not received by channel
  Then event is not published
 ```
+
+<div id='message-enqueued'/>
 
 ### Message enqueued
 Event `MessageEnqueued` is published when message is added to endpoint internal queue.
@@ -126,6 +148,8 @@ Given receiver is a standard endpoint in pool
  Then event is published
 ```
 
+<div id='message-delivered'/>
+
 ### Message delivered
 Event `MessageDelivered` is published when endpoint is about to start processing message.
 
@@ -168,6 +192,8 @@ Given receiver is a standard endpoint in pool
  When message is received by pool
  Then event is published
 ```
+
+<div id='message-processed'/>
 
 ### Message processed
 Event `MessageProcessed` is published when endpoint finished processing message.
@@ -214,7 +240,11 @@ Given receiver is a standard endpoint in pool
  Then event is published
 ```
 
+<div id='infrastructure-events-definition'/>
+
 ## Infrastructure events definition
+
+<div id='endpoint-activated'/>
 
 ### Endpoint activated
 
@@ -235,6 +265,8 @@ Given endpoint in channel or pool
  Then event is published
 ```
 
+<div id='endpoint-deactivated'/>
+
 ### Endpoint deactivated
 
 Event `EndpointDeactivated` is published when endpoint completed deactivation.
@@ -253,6 +285,8 @@ Given endpoint in channel or pool
  When endpoint completed deactivation
  Then event is published
 ```
+
+<div id='endpoint-connected'/>
 
 ### Endpoint connected
 
@@ -299,6 +333,8 @@ Given endpoint in pool
  Then event is NOT published
 ```
 
+<div id='endpoint-disconnected'/>
+
 ### Endpoint disconnected
 
 Event `EndpointDisconnected` is published when endpoint disconnected from channel.
@@ -335,6 +371,8 @@ Given endpoint in pool
  Then event is published
 ```
 
+<div id='container-activated'/>
+
 ### Container activated
 
 Event `ContainerActivated` is published when pool or channel is activated.
@@ -354,6 +392,8 @@ Given inactive pool or channel
  Then event is published
 ```
 
+<div id='container-deactivated'/>
+
 ### Container deactivated
 
 Event `ContainerDeactivated` is published when pool or channel is deactivated.
@@ -372,6 +412,9 @@ Given active pool or channel
  When container is not active anymore
  Then event is published
 ```
+
+<div id='warning-reported'/>
+
 ### Warning reported
 
 Event `WarningReported` is published when endpoint reported warning.
@@ -392,6 +435,8 @@ Given endpoint in channel or pool
  When endpoint reported warning
  Then event is published
 ```
+
+<div id='warning-cleared'/>
 
 ### Warning cleared
 
