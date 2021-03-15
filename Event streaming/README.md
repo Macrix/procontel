@@ -380,8 +380,8 @@ Event `ContainerActivated` is published when pool or channel is activated.
 
 Event content:
 ```csharp
-public string ContainerId { get; set; }
 public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public string ContainerId { get; set; }
 ```
 
 Usage scenarios:
@@ -389,7 +389,7 @@ Usage scenarios:
 ```gherkin
 Scenario: pool or channel is being activated
 Given inactive pool or channel
- When container has been just activated
+ When container activated
  Then event is published
 ```
 
@@ -397,12 +397,12 @@ Given inactive pool or channel
 
 ### Container deactivated
 
-Event `ContainerDeactivated` is published when pool or channel is deactivated.
+Event `ContainerDeactivated` is published just before pool or channel is deactivated.
 
 Event content:
 ```csharp
-public string ContainerId { get; set; }
 public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+public string ContainerId { get; set; }
 ```
 
 Usage scenarios:
@@ -410,7 +410,7 @@ Usage scenarios:
 ```gherkin
 Scenario: pool or channel is being deactivated
 Given active pool or channel
- When container is not active anymore
+ When container is about to deactivate
  Then event is published
 ```
 
