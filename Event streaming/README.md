@@ -470,7 +470,7 @@ Given endpoint in channel or pool
 
 ### Cyclic report
 
-Event `CyclicReport` is published cyclic every 2 minutes.
+Event `CyclicReport` is published cyclic every 60 seconds.
 
 Event content:
 ```csharp
