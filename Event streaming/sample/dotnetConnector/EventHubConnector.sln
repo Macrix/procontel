@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProconTel.EventHub.Connector", "EventHubConnector\ProconTel.EventHub.Connector.csproj", "{7EC2E0F4-3C10-4423-84BF-CBE86C447B67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "SampleApp\SampleApp.csproj", "{534F3EA8-4613-4115-80FC-8D237BDFC9F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EC2E0F4-3C10-4423-84BF-CBE86C447B67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC2E0F4-3C10-4423-84BF-CBE86C447B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC2E0F4-3C10-4423-84BF-CBE86C447B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC2E0F4-3C10-4423-84BF-CBE86C447B67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{534F3EA8-4613-4115-80FC-8D237BDFC9F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{534F3EA8-4613-4115-80FC-8D237BDFC9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{534F3EA8-4613-4115-80FC-8D237BDFC9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{534F3EA8-4613-4115-80FC-8D237BDFC9F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AF6BA6D-E255-4A11-B385-FA88628A1BDC}
+	EndGlobalSection
+EndGlobal
