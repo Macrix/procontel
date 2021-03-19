@@ -2,12 +2,14 @@
 
 ## Introduction
 
-What is ProconTEL streaming.
+_ProconTEL Event Streaming_ is set of events which are exposed via _Event Hub_ service to outside world. In short, example, if endpoint broadcasts a message or compeles its activation an event will be published by _ProconTEL Event Hub_ service.
 
 
 ## What you can find here?
 
 Documentation contains information about available events and defines scenarios in which events are published. Description of each event contains definition of event data structure and usage scenario written in BDD approach.
+
+If you are searching for information how to make use of _Event Streaming_ in your own application checkout our [sample application](sample/). 
 
 ## Table of Contents
 
