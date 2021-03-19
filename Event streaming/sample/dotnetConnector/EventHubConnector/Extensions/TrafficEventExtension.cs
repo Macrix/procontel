@@ -8,18 +8,22 @@ namespace ProconTel.EventHub.Connector.Contracts.Extensions
   {
     public static TrafficEvent Describe(this TrafficEvent @event, List<ChannelDTO> procontelApi)
     {
-      if (@event.MessageReceived != null)
+      switch (@event.EventTypeCase)
       {
-        @event.MessageReceived.DestinationContainerName = NamesTranslator.GetContainerName(procontelApi, @event.MessageReceived.DestinationContainerId);
-        NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageReceived.Sender);
+        case TrafficEventCase.MessageReceived:
+          @event.MessageReceived.DestinationContainerName = NamesTranslator.GetContainerName(procontelApi, @event.MessageReceived.DestinationContainerId);
+          NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageReceived.Sender);
+          break;
+        case TrafficEventCase.MessageEnqueued:
+          NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageEnqueued.Queue);
+          break;
+        case TrafficEventCase.MessageDelivered:
+          NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageDelivered.Receiver);
+          break;
+        case TrafficEventCase.MessageProcessed:
+          NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageProcessed.Receiver);
+          break;
       }
-      else if (@event.MessageEnqueued != null)
-        NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageEnqueued.Queue);
-      else if (@event.MessageDelivered != null)
-        NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageDelivered.Receiver);
-      else if (@event.MessageProcessed != null)
-        NamesTranslator.SetEndpointIdentity(procontelApi, @event.MessageProcessed.Receiver);
-
       return @event;
     }
   }

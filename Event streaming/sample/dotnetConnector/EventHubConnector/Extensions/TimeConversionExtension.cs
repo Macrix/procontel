@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProconTel.EventHub.Connector.Contracts.gRPC;
+using System;
 
 namespace ProconTel.EventHub.Connector.Contracts.Extensions
 {
@@ -18,26 +19,18 @@ namespace ProconTel.EventHub.Connector.Contracts.Extensions
         seconds >= UnixSecondsAtBclMinValue &&
         seconds <= UnixSecondsAtBclMaxValue;
 
-    public static DateTime GoogleTimestampToDateTime(this System.Text.Json.JsonElement json, string dateTimeStamp)
+    public static DateTime ToDateTime(this Timestamp timestamp)
     {
-      var timestampProperty = json.GetProperty(dateTimeStamp);
-      var seconds = timestampProperty.GetProperty("seconds").GetInt64();
-      var nanos = timestampProperty.GetProperty("nanos").GetInt32();
-
-      if (!IsNormalized(seconds, nanos))
-        throw new InvalidOperationException($"Timestamp contains invalid values: Seconds={seconds}; Nanos={nanos}");
-      return UnixEpoch.AddSeconds(seconds).AddTicks(nanos / NanosecondsPerTick);
+      if (!IsNormalized(timestamp.Seconds, timestamp.Nanos))
+        throw new InvalidOperationException($"Timestamp contains invalid values: Seconds={timestamp.Seconds}; Nanos={timestamp.Nanos}");
+      return UnixEpoch.AddSeconds(timestamp.Seconds).AddTicks(timestamp.Nanos / NanosecondsPerTick);
     }
 
-    public static TimeSpan GoogleDurationToTimeSpan(this System.Text.Json.JsonElement json, string duration)
+    public static TimeSpan ToTimeSpan(this Duration duration)
     {
-      var durationProperty = json.GetProperty(duration);
-      var seconds = durationProperty.GetProperty("seconds").GetInt64();
-      var nanos = durationProperty.GetProperty("nanos").GetInt32();
-
-      if (!IsNormalized(seconds, nanos))
+      if (!IsNormalized(duration.Seconds, duration.Nanos))
           throw new InvalidOperationException("Duration was not a valid normalized duration");
-      long ticks = seconds * TimeSpan.TicksPerSecond + nanos / NanosecondsPerTick;
+      long ticks = duration.Seconds * TimeSpan.TicksPerSecond + duration.Nanos / NanosecondsPerTick;
       return TimeSpan.FromTicks(ticks);
     }
   }

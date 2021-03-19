@@ -5,6 +5,7 @@ using ProconTel.EventHub.Connector.Contracts.REST;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ProconTel.EventHub.Connector
@@ -46,26 +47,18 @@ namespace ProconTel.EventHub.Connector
     {
       _containers = GetContainerData(_restApiAddress);
 
-      _hubConnection.On<object>(InfrastructureEventMethodName, (d) =>
+      _hubConnection.On<InfrastructureEvent>(InfrastructureEventMethodName, rawEvent =>
       {
-        var json = (System.Text.Json.JsonElement)d;
-        var rawEvent = json.ToObject<InfrastructureEvent>();
         var describedEvent = rawEvent.Describe(_containers);
 
         InfrastructureEventReceived?.Invoke(describedEvent);
-        //jsonParam.Value = JsonSerializer.Serialize(describedEvent);
-        //timeParam.Value = json.GoogleTimestampToDateTime("dateTimeStamp");
       });
 
-      _hubConnection.On<object>(TrafficEventMethodName, (d) =>
+      _hubConnection.On<TrafficEvent>(TrafficEventMethodName, rawEvent =>
       {
-        var json = (System.Text.Json.JsonElement)d;
-        var rawEvent = json.ToObject<TrafficEvent>();
         var describedEvent = rawEvent.Describe(_containers);
 
         TrafficEventReceived?.Invoke(describedEvent);
-        //jsonParam.Value = JsonSerializer.Serialize(describedEvent);
-        //timeParam.Value = json.GoogleTimestampToDateTime("dateTimeStamp");
       });
     }
 

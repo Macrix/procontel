@@ -1,8 +1,12 @@
-﻿namespace ProconTel.EventHub.Connector.Contracts.gRPC
+﻿using ProconTel.EventHub.Connector.Contracts.Extensions;
+using System;
+
+namespace ProconTel.EventHub.Connector.Contracts.gRPC
 {
   public class InfrastructureEvent
   {
-    //public DateTime dateTimeStamp { get; set; }
+    public InfrastructureEventCase EventTypeCase { get; set; }
+    public Timestamp DateTimeStamp { get; set; }
     public EndpointActivated EndpointActivated { get; set; }
     public EndpointDeactivated EndpointDeactivated { get; set; }
     public EndpointConnected EndpointConnected { get; set; }
@@ -12,6 +16,22 @@
     public ContainerActivated ContainerActivated { get; set; }
     public ContainerDeactivated ContainerDeactivated { get; set; }
     public CyclicReport CyclicReport { get; set; }
+
+    public override string ToString()
+      => $"{DateTimeStamp.ToDateTime():G} {EventTypeCase}";
+  }
+
+  public enum InfrastructureEventCase
+  {
+    EndpointActivated = 2,
+    EndpointDeactivated = 3,
+    EndpointConnected = 4,
+    EndpointDisconnected = 5,
+    WarningReported = 9,
+    WarningCleared = 10,
+    ContainerActivated = 11,
+    ContainerDeactivated = 12,
+    CyclicReport = 13
   }
 
   public class EndpointActivated
