@@ -38,10 +38,8 @@ File `%PTROOT%\Experimental\EventHub\appsettings.json`:
 
 ```json
 {
-  ...
-
+  
   "Urls": "http://localhost:9500",
 
-  ...
 }
 ```
