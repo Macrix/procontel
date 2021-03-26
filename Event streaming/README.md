@@ -13,6 +13,8 @@ There is also instruction how to consume available events.
 1. [Prerequisites](#prerequisites)
 2. [How to activate _ProconTEL Event Streaming_](#how-to-activate)
 3. [How to consume events](#how-to-consume)
+	* [Basics](#how-to-consume-basics)
+	* [.NET sample](#how-to-consume-dotnet)
 4. [Exposed events](#exposed-events)
 	* [Common definitions](#common-definitions)
 	* [Traffic events definition](#traffic-events-definition)
@@ -44,13 +46,15 @@ To use _Event Streaming_:
 ## How to activate and configure ProconTEL Event Streaming
 Currently Event Streaming is an experimental feature which is turned off by default.  
 To activate it, open your **_Server Configuration Manager_** and set property **_General\Enable statistics monitoring mechanism_** to **_True_**.  
-Optionally you can change default address used for _Event Streaming_ by editing _General\Event Hub REST API address_'.  
+Optionally you can change default address used for _Event Streaming_ by editing _General\Event Hub REST API address_.  
 After that **_ProconTEL Administration_ service must be restarted**.  
-Additionally make sure that 'ProconTEL Event Hub' service is running.  
+Additionally make sure that 'ProconTEL Event Hub' service is running as well.  
 
 <div id='how-to-consume'/>
 
 ## How to consume events
+
+<div id='how-to-consume-basics'/>
 
 ### Basics
 
@@ -65,7 +69,9 @@ As a next step you need to subscribe to needed streams/methods:
 * **_trafficEventReceived_**, if you want to receive [traffic events](#traffic-events-definition);
 * **_infrastructureEventReceived_**, if you want to receive [infrastructure events](#infrastructure-events-definition).
 
-### .Net Connector
+<div id='how-to-consume-dotnet'/>
+
+### .NET sample
 If you are searching for information how to make use of _Event Streaming_ in your .NET application, as a starting point, check out our experimental [sample application](sample/). 
 
 <div id='exposed-events'/>
