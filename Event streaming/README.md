@@ -3,6 +3,8 @@
 ## Introduction
 
 _ProconTEL Event Streaming_ is a set of events which are exposed via _Event Hub_ service to outside world. For example, if endpoint broadcasts a message or completes its activation an event is published by _ProconTEL Event Hub_ service.
+_Event_ in this context means information about important situation that happened in ProconTel internals.
+Notice that both - new and old ProconTel SDK is supported. 
 
 ## What you can find here?
 This documentation contains information about available events and defines scenarios in which events are published. Description of each event contains definition of event data structure and usage scenario written in BDD approach.
@@ -46,7 +48,7 @@ To use _Event Streaming_:
 ## How to activate and configure ProconTEL Event Streaming
 Currently Event Streaming is an experimental feature which is turned off by default.  
 To activate it, open your **_Server Configuration Manager_** and set property **_General\Enable statistics monitoring mechanism_** to **_True_**.  
-Optionally you can change default address used for _Event Streaming_ by editing _General\Event Hub REST API address_.  
+Optionally you can change default address used for _Event Streaming_ by editing _General\Event Hub REST API address_. Notice that each ProconTel installation on a server needs its individual Event Hub REST API address.
 After that **_ProconTEL Administration_ service must be restarted**.  
 Additionally make sure that 'ProconTEL Event Hub' service is running as well.  
 
