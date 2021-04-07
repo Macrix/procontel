@@ -34,6 +34,7 @@ There is also instruction how to consume available events.
 	   * [Warning reported](#warning-reported)
 	   * [Warning cleared](#warning-cleared)
 	   * [Cyclic report](#cyclic-report)
+	   * [System failure](#system-failure)
 
 
 <div id='prerequisites'/>
@@ -538,5 +539,28 @@ Usage scenarios:
 Scenario: channel and pool sent cyclic report
 Given active channel or pool
  When specified period of time passed 
+ Then event is published
+```
+
+<div id='system-failure'/>
+
+### System failure
+
+Event `SystemFailure` is published when something wrong happened.
+
+Event content:
+```csharp
+public string ContainerId { get; set; }
+public string FailureMessage { get; set; }
+public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
+```
+
+Usage scenarios:
+
+```gherkin
+Scenario: pool or channel reached max memory limit
+Given active channel or pool
+ And channel or pool has configured max memory limit
+ When it is detected that container's memory limit is reached
  Then event is published
 ```
