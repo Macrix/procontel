@@ -2,13 +2,11 @@
 
 ## Introduction
 
-_ProconTEL Event Streaming_ is a set of events which are exposed via _Event Hub_ service to outside world. For example, if endpoint broadcasts a message or completes its activation an event is published by _ProconTEL Event Hub_ service.
-_Event_ in this context means information about important situation that happened in ProconTel internals.
-Notice that both - new and old ProconTel SDK is supported. 
+_ProconTEL Event Streaming_ is a set of events which are exposed via _Event Hub_ service to outside world. For example, if endpoint broadcasts a message or completes its activation an event is published by _ProconTEL Event Hub_ service. _Event_ in this context means information about important situation that happened in ProconTel internals. Notice that both - new and old ProconTel SDK are supported. 
 
 ## What you can find here?
-This documentation contains information about available events and defines scenarios in which events are published. Description of each event contains definition of event data structure and usage scenario written in BDD approach.
-There is also instruction how to consume available events.
+
+This documentation contains information about available events and defines scenarios in which events are published and includes instruction how to consume available events. Description of each event contains definition of its' data structure and usage scenario written using BDD approach.
 
 ## Table of Contents
 
@@ -23,7 +21,10 @@ There is also instruction how to consume available events.
 		* [Message received](#message-received)
 		* [Message enqueued](#message-enqueued)
 		* [Message delivered](#message-delivered)
+			* [Message delivered event for _Mailslot Telegram Handler_, _TCP Telegram Handler_ and _UDP Telegram Handler_](#message-delivered-standard-endpoints)
 		* [Message processed](#message-processed)
+			* [Message processed event for _Database Telegram Writer_ and _Telegram Cache_](#message-processed-standard-endpoints1)
+			* [Message processed event for _Mailslot Telegram Handler_, _TCP Telegram Handler_ and _UDP Telegram Handler_](#message-processed-standard-endpoints2)
 	* [Infrastructure events definition](#infrastructure-events-definition)
 	   * [Endpoint activated](#endpoint-activated)
 	   * [Endpoint deactivated](#endpoint-deactivated)
@@ -204,6 +205,7 @@ Given receiver is a standard endpoint in pool
 <div id='message-delivered'/>
 
 ### Message delivered
+
 Event `MessageDelivered` is published when endpoint is about to start processing message.
 
 Event content:
@@ -231,6 +233,8 @@ Given receiver is an endpoint in pool
  Then event is published
 ```
 
+Following scenario applies only to _Database Telegram Writer_ and _Telegram Cache_:
+
 ```gherkin
 Scenario: message delivered to standard endpoint in channel
 Given receiver is a standard endpoint in channel
@@ -242,13 +246,40 @@ Given receiver is a standard endpoint in channel
 Scenario: message delivered to standard endpoint in pool
 Given receiver is a standard endpoint in pool
   And receiver has an active and connected avatar in channel
- When message is received by pool
+ When message is received by endpoint
+ Then event is published
+```
+
+
+<div id='message-delivered-standard-endpoints'/>
+
+#### Message delivered event for _Mailslot Telegram Handler_, _TCP Telegram Handler_ and _UDP Telegram Handler_
+
+Event `MessageDelivered` is published when standard endpoint _Mailslot Telegram Handler_, _TCP Telegram Handler_ or _UDP Telegram Handler_ is about to start processing message. In case when many communication partners are defined, event can be published multiple times for the same message.
+
+Usage scenarios:
+
+```gherkin
+Scenario: message delivered by Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler in channel
+Given receiver is a Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler endpoint in channel
+  And receiver has at least one communication partner available
+ When message is received by endpoint
+ Then event is published
+```
+
+```gherkin
+Scenario: message delivered by Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler endpoint in pool
+Given receiver is a Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler endpoint in pool
+  And receiver has an active and connected avatar in channel
+  And receiver has at least one communication partner available
+ When message is received by endpoint
  Then event is published
 ```
 
 <div id='message-processed'/>
 
 ### Message processed
+
 Event `MessageProcessed` is published when endpoint finished processing message.
 
 Event content:
@@ -265,7 +296,7 @@ Usage scenarios:
 ```gherkin
 Scenario: message processed by endpoint in channel
 Given receiver is an endpoint in channel
- When message is processed by endpoint 
+ When message is processed by receiver 
  Then event is published
 ```
 
@@ -273,25 +304,60 @@ Given receiver is an endpoint in channel
 Scenario: message processed by endpoint in pool
 Given receiver is an endpoint in pool
   And receiver has an active and connected avatar in channel
- When message is processed by endpoint
+ When message is processed by receiver
  Then event is published
 ```
 
-**Following 2 scenarios are NOT currently supported!!!**
+
+<div id='message-processed-standard-endpoints1'/>
+
+#### Message processed event for _Database Telegram Writer_ and _Telegram Cache_
+
+Event `MessageProcessed` is published when standard endpoint _Database Telegram Writer_ or _Telegram Cache_ finished processing message.
+
+Usage scenarios:
+
 ```gherkin
-Scenario: message processed by standard endpoint in channel
-Given receiver is a standard endpoint in channel
- When message is processed by endpoint 
+Scenario: message processed by Telegram Cache or DB Writer in channel
+Given receiver is a Telegram Cache or DB Writer endpoint in channel
+ When message is processed by receiver 
  Then event is published
 ```
 
 ```gherkin
-Scenario: message processed by standard endpoint in pool
-Given receiver is a standard endpoint in pool
+Scenario: message processed by Telegram Cache or DB Writer endpoint in pool
+Given receiver is a Telegram Cache or DB Writer endpoint in pool
   And receiver has an active and connected avatar in channel
- When message is processed by pool
+ When message is processed by receiver
  Then event is published
 ```
+
+
+<div id='message-processed-standard-endpoints2'/>
+
+#### Message processed event for _Mailslot Telegram Handler_, _TCP Telegram Handler_ and _UDP Telegram Handler_
+
+Event `MessageProcessed` is published when standard endpoint _Mailslot Telegram Handler_, _TCP Telegram Handler_ or _UDP Telegram Handler_ sends message to connected communication partner. In case when many communication partners are defined, event can be published multiple times for the same message.
+
+Usage scenarios:
+
+```gherkin
+Scenario: message processed by Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler in channel
+Given receiver is a Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler endpoint in channel
+  And receiver has at least one communication partner available
+ When message is send by receiver to one communication partner
+ Then event is published
+```
+
+```gherkin
+Scenario: message processed by Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler endpoint in pool
+Given receiver is a Mailslot Telegram Handler or TCP Telegram Handler or UDP Telegram Handler endpoint in pool
+  And receiver has an active and connected avatar in channel
+  And receiver has at least one communication partner available
+ When message is send by receiver to one communication partner
+ Then event is published
+```
+
 
 <div id='infrastructure-events-definition'/>
 
