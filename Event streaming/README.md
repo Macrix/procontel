@@ -289,6 +289,7 @@ public string MessageId { get; set; }
 public Guid CorrelationId { get; set; }
 public EndpointIdentity Receiver { get; set; }
 public TimeSpan ProcessingDuration { get; set; }
+public bool IsProcessedSuccessfully { get; set; }
 ```
 
 Usage scenarios:
