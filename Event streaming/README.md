@@ -613,7 +613,7 @@ Given active channel or pool
 
 ### System failure
 
-Event `SystemFailure` is published when something wrong happened.
+Event `SystemFailure` is published when memory limit for pool or channel is reached.
 
 Event content:
 ```csharp
