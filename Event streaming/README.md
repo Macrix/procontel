@@ -640,9 +640,7 @@ Notice when ProconTel message is being transferred from one endpoint to another 
 To measure performance we executed the test where we have two isolated endpoints in a single channel. One endpoint is broadcasting a simple message, the other is receiving it. 
 When _Event Hub_ is off it took 0,29 milliseconds to transfer single message. When _Event Hub_ is off it took 0,38 ms.
 
-+---------------+----------+----------------------+
-|     Case      | Version  | Processing time [ms] |
-+---------------+----------+----------------------+
-| Event Hub Off | 3.0.21.0 |                 0,29 |
-| Event Hub On  | 3.0.21.0 |                 0,38 |
-+---------------+----------+----------------------+
+| Case          | Version  | Processing time [ms]  |
+| ------------- | -------- | ---------------------:|
+| Event Hub Off | 3.0.21.0 |                  0,29 |
+| Event Hub On  | 3.0.21.0 |                  0,38 |
