@@ -36,7 +36,7 @@ This documentation contains information about available events and defines scena
 	   * [Warning cleared](#warning-cleared)
 	   * [Cyclic report](#cyclic-report)
 	   * [System failure](#system-failure)
-
+5. [Performance](#performance)
 
 <div id='prerequisites'/>
 
@@ -631,3 +631,18 @@ Given active channel or pool
  When it is detected that container's memory limit is reached
  Then event is published
 ```
+
+<div id='performance'/>
+
+## Performance
+Using _Event Hub_ obviously affects ProconTel performance. 
+Notice when ProconTel message is being transferred from one endpoint to another and Event Hub is on, we publish four additional GRPC messages (MessageReceived, MessageEnqueued, MessageDelivered, MessageProcessed). Writing to GRPC stream costs resources. 
+To measure performance we executed the test where we have two isolated endpoints in a single channel. One endpoint is broadcasting a simple message, the other is receiving it. 
+When _Event Hub_ is off it took 0,29 milliseconds to transfer single message. When _Event Hub_ is off it took 0,38 ms.
+
++---------------+----------+----------------------+
+|     Case      | Version  | Processing time [ms] |
++---------------+----------+----------------------+
+| Event Hub Off | 3.0.21.0 |                 0,29 |
+| Event Hub On  | 3.0.21.0 |                 0,38 |
++---------------+----------+----------------------+
