@@ -2,11 +2,11 @@
 
 ## Introduction
 
-_REST API_ is an exposed interface to get some internal ProconTel information about endpoints.
+_REST API_ is an exposed interface via HTTP to get some internal ProconTel information about endpoints.
 
 ## What you can find here?
 
-This documentation contains information about REST API configuration and exposed methods. 
+This documentation contains information about REST API configuration and exposed data. 
 
 ## Table of Contents
 
@@ -44,14 +44,14 @@ Definition of structures used in API methods response bodies.
 ### QueueInfo
 Contains information about endpoint's message queues.
 
-```json
+```
 QueueInfo{
-	queueId         string 			nullable: true  //id of the queue
-	containerId     string 			nullable: true  //id of communication channel
-	contentId       string 			nullable: true  //id of message
-	providerId      string 			nullable: true  //id of message provider
-	limit           integer($int32)                    //maximum size of the queue
-	usage           integer($int32)                    //current size of the queue
+	queueId         string				//id of the queue
+	containerId     string				//id of communication channel
+	contentId       string				//id of message
+	providerId      string				//id of message provider
+	limit           integer($int32)		//maximum size of the queue
+	usage           integer($int32)		//current size of the queue
 }
 ``` 
 
@@ -60,15 +60,15 @@ QueueInfo{
 ### EndpointInformation
 Contains details of an endpoint.
 
-```json
+```
 EndpointInformation{
-	name            string 					nullable: true  //name of the endpoint
-	id              string 					nullable: true  //id (GUID) of the endpoint
-	containerId     string 					nullable: true  //id of channel or pool
-	startTime       string($date-time)                          //last activation date time
-	stopTime        string($date-time)                          //last deactivation date time
-	queueInfo       [...]                                       //endpoint message queues
-	channels        [nullable: true string]                     //ids of available communication channels
+	name            string					//name of the endpoint
+	id              string					//id (GUID) of the endpoint
+	containerId     string					//id of channel or pool
+	startTime       string($date-time)		//last activation date time
+	stopTime        string($date-time)		//last deactivation date time
+	queueInfo       [...]					//endpoint message queues
+	channels        [string]				//ids of available communication channels
 }
 ```
 
