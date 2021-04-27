@@ -15,8 +15,8 @@ This documentation contains information about REST API configuration and exposed
 	* [Queue Info](#common-definitions-queueinfo)
 	* [Endpoint Information](#common-definitions-endpointinformation)
 3. [Exposed methods](#exposed-methods)
-	* [Get endpoint's details](#api-method-endpoints-get)
-	* [Get all endpoints' details](#api-method-endpoints-browse)
+	* [Get single endpoint details](#api-method-endpoint-get)
+	* [Get all endpoints details](#api-method-endpoints-browse)
 	* [Get activated endpoints](#api-method-endpoints-allrunning)
 	* [Get deactivated endpoints](#api-method-endpoints-alldisabled)
 
@@ -67,7 +67,7 @@ EndpointInformation{
 	containerId     string					//id of channel or pool
 	startTime       string($date-time)		//last activation date time
 	stopTime        string($date-time)		//last deactivation date time
-	queueInfo       [...]					//endpoint message queues
+	queueInfo       [QueueInfo]					//endpoint message queues
 	channels        [string]				//ids of available communication channels
 }
 ```
@@ -76,7 +76,6 @@ EndpointInformation{
 
 ## Exposed methods
 
-<div id='api-method-endpoints-get'/>
 There is a list of available REST API methods. 
 To get familiar with response body structures, see Common definitions above.
 
@@ -85,8 +84,9 @@ To get familiar with response body structures, see Common definitions above.
 There are special standard endpoints: `TcpTelegramHandler`, `UdpTelegramHandler` and `MailslotTelegramHandler`. 
 For these endpoints methods can return misleading results when there is more than one communication partner connected.
 
+<div id='api-method-endpoint-get'/>
 
-### Get endpoint details
+### Get single endpoint details
 Method returns details of a single endpoint.
 
 Example URL: `http://localhost:9500/api/Endpoints/Get/{id}`
@@ -139,7 +139,7 @@ Response body example:
 
 <div id='api-method-endpoints-browse'/>
 
-### Get all endpoints' details
+### Get all endpoints details
 Method returns details of all added endpoints.
 
 Example URL: `http://localhost:9500/api/Endpoints/Browse`
