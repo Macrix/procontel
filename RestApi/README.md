@@ -82,7 +82,7 @@ To get familiar with response body structures, see Common definitions above.
 
 **Disclaimer!**
 There are special standard endpoints: `TcpTelegramHandler`, `UdpTelegramHandler` and `MailslotTelegramHandler`. 
-For these endpoints methods can return misleading results when there is more than one communication partner connected.
+For these endpoints API can return misleading information about QueueInfos when there is more than one communication partner connected.
 
 <div id='api-method-endpoint-get'/>
 
