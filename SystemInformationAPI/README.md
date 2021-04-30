@@ -2,11 +2,11 @@
 
 ## Introduction
 
-_REST API_ is an exposed interface via HTTP to get some internal ProconTel information about endpoints.
+_System Information API_ is an exposed interface via HTTP to get some internal ProconTel information about endpoints.
 
 ## What you can find here?
 
-This documentation contains information about REST API configuration and exposed data. 
+This documentation contains information about System Information API configuration and exposed data. 
 
 ## Table of Contents
 
@@ -23,11 +23,11 @@ This documentation contains information about REST API configuration and exposed
 <div id='prerequisites'/>
 
 ## Prerequisites
-To use _REST API_: 
+To use _System Information API_: 
 1. Install the newest version of _ProconTEL_.
 2. Configure it:
 	* open your **_Server Configuration Manager_** and set property **_General\Enable statistics monitoring mechanism_** to **_True_**.  
-	* optionally change default address used for _REST API_ by editing _General\Event Hub REST API address_. Notice that each ProconTel installation on a server needs its individual Event Hub REST API address.
+	* optionally change default address used for _System Information API_ by editing _General\Event Hub REST API address_. Notice that each ProconTel installation on a server needs its individual Event Hub REST API address.
 	* **restart** following windows services: _ProconTEL Administration_, _ProconTEL Event Hub_.  
 
 <div id='exposed-methods'/>
@@ -76,7 +76,7 @@ EndpointInformation{
 
 ## Exposed methods
 
-There is a list of available REST API methods. 
+There is a list of available System Information API methods. 
 To get familiar with response body structures, see Common definitions above.
 
 
