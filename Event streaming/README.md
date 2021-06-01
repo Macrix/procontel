@@ -1,4 +1,10 @@
-# Event Streaming
+---
+Title: "Event Streaming"
+github_url: "https://github.com/Macrix/procontel/edit/master/Event%20streaming/README.md"
+Weight: 8
+Description: >
+  Learn how to use the Event Streaming
+---
 
 ## Introduction
 
