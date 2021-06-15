@@ -2,5 +2,6 @@
 
 ## Table of Contents
 
-1. [Event Streaming](Event&#32;streaming/)
-2. [System Information API](SystemInformationAPI/)
+1. [Articles](Articles/)
+2. [Event Streaming](Event&#32;streaming/)
+3. [System Information API](SystemInformationAPI/)
