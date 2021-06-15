@@ -8,13 +8,13 @@ More information about gRPC you can [learn here](https://grpc.io/docs/what-is-gr
 
 Below diagram shows communication layer architecture from before our changes.
 
-
+![WCF communication layer](./assets/wcf_communication_layer.svg)
 
 ## Introducing the "switch"
 
 In the next diagram you can see communication layer architecture after we introduced the switch, which enables gRPC or WCF.
 
-
+![gRPC communication layer mixed with WCF infrastructure calls](./assets/grpc_switch_concept.svg)
 
 ## Next steps
 
