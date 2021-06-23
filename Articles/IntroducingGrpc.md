@@ -18,4 +18,4 @@ In the next diagram you can see communication layer architecture after we introd
 
 ## Next steps
 
-As you can see, the "switch" is just a small part on the way of replacing completly WCF. Even when gRPC communication mode is on, only content exchanged between channels and pools (via avatars) is send over gRPC protocol. And yet, this it is still not complete, as infrastructure calls are made via WCF. That's why in next steps we will be working on replacing another part of WCF communication layer, so let's stay touch.
+As you can see, the "switch" is just a small part on the way of replacing completly WCF. Even when gRPC communication mode is on, only content exchanged between channels and pools (via avatars) is send over gRPC protocol. And yet, this it is still not complete, as infrastructure calls are made via WCF. That's why in next steps we will be working on replacing another part of WCF communication layer, so let's stay in touch.
