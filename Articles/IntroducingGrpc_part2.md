@@ -18,3 +18,5 @@ The third actor, _Service Discovery_, is responsible for collecting information 
 
 For a better understanding of described process have a look at the diagram below.
 
+![Image placeholder](./assets/image_placeholder.svg)
+
