@@ -16,7 +16,34 @@ From pool perspective it looks slightly simpler. When endpoint in pool activates
 
 The third actor, _Service Discovery_, is responsible for collecting information about available endpoints in pools and notifying channels.  _Service Discovery_ exposes only REST interfaces.
 
-For a better understanding of described process have a look at the diagram below.
+For a better understanding of described process have a look at the diagrams below.
 
-![Image placeholder](./assets/image_placeholder.svg)
+```mermaid
+sequenceDiagram
+    participant a as Avatar
+    participant eh as EventHub
+    participant pe as PoolEndpoint
+    
+    Note over a,pe: Case: Avatar started before pool
+    a->>eh: Get GrpcPort
+        eh-->>eh: Register webhook
+    eh-->>a: Return empty GrpcPort
+    a->>pe: Activate endpoint in pool
+    pe-->>eh: Register GRPC port for endpoint
+    eh-->>a: Return valid GRPC port for pool
+    a->>pe: Establish GRPC communication between channel and pool 
 
+    Note over a,pe: Case: Endpoint pool started before avatar
+    pe-->>eh: Register GRPC port for endpoint
+    a->>eh: Get GrpcPort
+    eh-->>a: Return valid GrpcPort
+    a->>pe: Establish GRPC communication between channel and pool 
+
+    Note over a,pe: Case: Reconnect
+    a->>pe: Establish GRPC connection
+    loop while disconnected
+        a->>eh: Get GrpcPort
+        eh-->>a: Return valid GrpcPort
+        a->>pe: Establish GRPC communication between channel and pool 
+    end
+```
