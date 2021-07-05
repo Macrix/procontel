@@ -1,0 +1,29 @@
+https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgYSBhcyBBdmF0YXJcbiAgICBwYXJ0aWNpcGFudCBlaCBhcyBFdmVudEh1YlxuICAgIHBhcnRpY2lwYW50IHBlIGFzIFBvb2xFbmRwb2ludFxuICAgIFxuICAgIE5vdGUgb3ZlciBhLHBlOiBDYXNlOiBBdmF0YXIgc3RhcnRlZCBiZWZvcmUgcG9vbFxuICAgIGEtPj5laDogR2V0IEdycGNQb3J0XG4gICAgICAgIGVoLS0-PmVoOiBSZWdpc3RlciB3ZWJob29rXG4gICAgZWgtLT4-YTogUmV0dXJuIGVtcHR5IEdycGNQb3J0XG4gICAgYS0-PnBlOiBBY3RpdmF0ZSBlbmRwb2ludCBpbiBwb29sXG4gICAgcGUtLT4-ZWg6IFJlZ2lzdGVyIEdSUEMgcG9ydCBmb3IgZW5kcG9pbnRcbiAgICBlaC0tPj5hOiBSZXR1cm4gdmFsaWQgR1JQQyBwb3J0IGZvciBwb29sXG4gICAgYS0-PnBlOiBFc3RhYmxpc2ggR1JQQyBjb21tdW5pY2F0aW9uIGJldHdlZW4gY2hhbm5lbCBhbmQgcG9vbCBcblxuICAgIE5vdGUgb3ZlciBhLHBlOiBDYXNlOiBFbmRwb2ludCBwb29sIHN0YXJ0ZWQgYmVmb3JlIGF2YXRhclxuICAgIHBlLS0-PmVoOiBSZWdpc3RlciBHUlBDIHBvcnQgZm9yIGVuZHBvaW50XG4gICAgYS0-PmVoOiBHZXQgR3JwY1BvcnRcbiAgICBlaC0tPj5hOiBSZXR1cm4gdmFsaWQgR3JwY1BvcnRcbiAgICBhLT4-cGU6IEVzdGFibGlzaCBHUlBDIGNvbW11bmljYXRpb24gYmV0d2VlbiBjaGFubmVsIGFuZCBwb29sIFxuXG4gICAgTm90ZSBvdmVyIGEscGU6IENhc2U6IFJlY29ubmVjdFxuICAgIGEtPj5wZTogRXN0YWJsaXNoIEdSUEMgY29ubmVjdGlvblxuICAgIGxvb3Agd2hpbGUgZGlzY29ubmVjdGVkXG4gICAgICAgIGEtPj5laDogR2V0IEdycGNQb3J0XG4gICAgICAgIGVoLS0-PmE6IFJldHVybiB2YWxpZCBHcnBjUG9ydFxuICAgICAgICBhLT4-cGU6IEVzdGFibGlzaCBHUlBDIGNvbW11bmljYXRpb24gYmV0d2VlbiBjaGFubmVsIGFuZCBwb29sIFxuICAgIGVuZCIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOnRydWUsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjp0cnVlfQ
+
+sequenceDiagram
+    participant a as Avatar
+    participant eh as EventHub
+    participant pe as PoolEndpoint
+    
+    Note over a,pe: Case: Avatar started before pool
+    a->>eh: Get GrpcPort
+        eh-->>eh: Register webhook
+    eh-->>a: Return empty GrpcPort
+    a->>pe: Activate endpoint in pool
+    pe-->>eh: Register GRPC port for endpoint
+    eh-->>a: Return valid GRPC port for pool
+    a->>pe: Establish GRPC communication between channel and pool 
+
+    Note over a,pe: Case: Endpoint pool started before avatar
+    pe-->>eh: Register GRPC port for endpoint
+    a->>eh: Get GrpcPort
+    eh-->>a: Return valid GrpcPort
+    a->>pe: Establish GRPC communication between channel and pool 
+
+    Note over a,pe: Case: Reconnect
+    a->>pe: Establish GRPC connection
+    loop while disconnected
+        a->>eh: Get GrpcPort
+        eh-->>a: Return valid GrpcPort
+        a->>pe: Establish GRPC communication between channel and pool 
+    end
